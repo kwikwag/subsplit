@@ -9,11 +9,21 @@ def test_get_words_total_len():
         (
             (
                 (
-                    {"word": "Hello, ", "preceding_silence": 0.1},
-                    {"word": "world. ", "preceding_silence": 0.1},
-                    {"word": "How ", "preceding_silence": 1.5},
-                    {"word": "you ", "preceding_silence": 0.1},
-                    {"word": "doin'?", "preceding_silence": 0.1},
+                    {
+                        "word": "Hello, ",
+                    },
+                    {
+                        "word": "world. ",
+                    },
+                    {
+                        "word": "How ",
+                    },
+                    {
+                        "word": "you ",
+                    },
+                    {
+                        "word": "doin'?",
+                    },
                 ),
             ),
             28,
@@ -24,7 +34,7 @@ def test_get_words_total_len():
 
 
 def test_split_segments_for_subtitles():
-    """Test function for `get_words_total_len`"""
+    """Test function for `split_segments_for_subtitles`"""
     force_break_duration = 0.5
     allow_break_duration = 0.2
     lipsum = (

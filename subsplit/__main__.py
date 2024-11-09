@@ -1,5 +1,5 @@
 """Main CLI for subsplit"""
-from subsplit.subsplit import main
+from .main import main
 
 if __name__ == "__main__":
     main()

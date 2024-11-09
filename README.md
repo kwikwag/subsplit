@@ -7,7 +7,7 @@ subtitles.
 
 The package accepts Whisper-like segments, in the form:
 
-```json
+```jsonc
 {
     "segments": [
         {

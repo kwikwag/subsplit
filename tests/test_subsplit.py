@@ -1,8 +1,6 @@
 """Test module for subsplit"""
-from subsplit.subsplit import (
-    get_words_total_len,
-    split_segments_for_subtitles,
-)
+
+from subsplit.subsplit import get_words_total_len, split_segments_for_subtitles
 
 
 def test_get_words_total_len():
@@ -68,15 +66,30 @@ def test_split_segments_for_subtitles():
         "laoreet sollicitudin quam. ",
         "Mauris luctus quam eu leo auctor, ",
         "in feugiat justo aliquam. ",
-        "Nulla facilisi."
+        "Nulla facilisi.",
     )
     eps = 1e-7
     words = lipsum.split(" ")
+
+    def word_duration(word, idx):
+        # each word duration is slightly smaller than the previous
+        # this makes all gaps uneven, such that shorter gaps appear earlier,
+        # so that the algorithm becomes predictable for this test
+        duration = 1 - idx * eps
+        if "." in word:
+            # leave large gap after
+            duration -= force_break_duration
+        elif "," in word:
+            # leave short gap after
+            duration -= allow_break_duration
+        return duration
+
     words = [
         {
             "word": word + " ",
             "start": idx,
-            "end": idx + 1 - 1e3*eps - (idx * eps) - (force_break_duration if "." in word else allow_break_duration if "," in word else 0)}
+            "end": idx + word_duration(word, idx),
+        }
         for idx, word in enumerate(words)
     ]
     # remove trailing space for last word

@@ -1,4 +1,5 @@
 """Split transcription segments in a wise way for display as subtitles."""
+
 import re
 import sys
 import typing
@@ -8,6 +9,7 @@ from functools import partial
 
 class Word(typing.TypedDict):
     """Represents a word dict"""
+
     word: str
     start: float
     end: float
@@ -18,6 +20,7 @@ Words = typing.Iterable[Word]
 
 class Segment(typing.TypedDict):
     """Represents a segment dict"""
+
     words: typing.Iterable[Word]
     start: typing.Optional[int]
     end: typing.Optional[int]
@@ -355,7 +358,6 @@ def get_char_classes(
         s = re.sub(f"[{r}]", r[0], s)
     s = re.sub(f'[^{"".join(rs)}]', no_class, s)
     return s
-
 
 
 def dump_srt(segments: Segments, fp: typing.TextIO):

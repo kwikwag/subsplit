@@ -1,4 +1,5 @@
 """Main CLI for subsplit"""
+
 import argparse
 import contextlib
 import inspect
@@ -7,11 +8,7 @@ import sys
 import typing
 from functools import partial
 
-from .subsplit import (
-    dump_srt,
-    fix_start_end,
-    split_segments_for_subtitles,
-)
+from .subsplit import dump_srt, fix_start_end, split_segments_for_subtitles
 
 
 def add_defaults_as_args(f: typing.Callable, parser: argparse.ArgumentParser):
@@ -74,7 +71,7 @@ def main():
         if args.file == "-":
             fp = sys.stdin
         else:
-            fp = stack.push(open(args.file, "r", encoding="utf-8"))
+            fp = stack.push(open(args.file, "r", encoding="utf-8"))  # noqa: SIM115  - we handle context
         segments = json.load(fp)["segments"]
 
     if args.add_spaces:
@@ -93,7 +90,7 @@ def main():
         if args.out == "-":
             fp = sys.stdout
         else:
-            fp = stack.push(open(args.out, "w", encoding="utf-8"))
+            fp = stack.push(open(args.out, "w", encoding="utf-8"))  # noqa: SIM115  - we handle context
         if args.format == "json":
             json.dump(segments, fp, indent=1, ensure_ascii=False)
         elif args.format == "srt":
